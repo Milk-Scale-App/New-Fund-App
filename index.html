@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Money - Gaming App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Password Setup Page -->
+    <div id="setup-password-page" class="page active">
+        <div class="container">
+            <h1>🔐 Fund Money</h1>
+            <p>पासवर्ड सेटअप करें</p>
+            <input type="password" id="setup-password" placeholder="नया पासवर्ड (6 अक्षर)">
+            <input type="password" id="setup-confirm-password" placeholder="पासवर्ड कन्फर्म करें">
+            <button onclick="setupPassword()">पासवर्ड सेव करें</button>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page">
+        <div class="container">
+            <h1>🎮 Fund Money</h1>
+            <input type="email" id="login-email" placeholder="ईमेल एड्रेस">
+            <input type="password" id="login-password" placeholder="पासवर्ड">
+            <button onclick="loginWithEmailPassword()">लॉगिन करें</button>
+            
+            <div class="google-btn" onclick="signInWithGoogle()">
+                <span>📱 Google के साथ लॉगिन</span>
+            </div>
+            
+            <div class="links">
+                <a onclick="showPage('forgot-password-page')">पासवर्ड भूल गए?</a>
+                <a onclick="showPage('signup-page')">नया अकाउंट</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Dashboard -->
+    <div id="dashboard-page" class="page">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <button class="icon-btn" onclick="showPage('profile-page')">👤</button>
+            <div class="balance-box">
+                ₹ <span id="current-balance">0</span>
+                <button class="add-money-btn" onclick="showPage('add-money-page')">+</button>
+            </div>
+            <div class="notification-icon" onclick="toggleNotificationPanel()">
+                🔔 <span id="notification-badge" class="badge hidden">0</span>
+            </div>
+            <button class="logout-btn" onclick="logout()">लॉगआउट</button>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <div class="timer-display">
+                <div id="timer">30.00s</div>
+                <div class="progress-bar">
+                    <div id="progress-bar"></div>
+                </div>
+            </div>
+            
+            <div id="result-box" class="result-box">परिणाम का इंतज़ार...</div>
+            
+            <div class="bet-controls">
+                <div class="amount-controls">
+                    <button onclick="setBetAmount(1)">Min</button>
+                    <button onclick="adjustBetAmount(-1)">-</button>
+                    <input type="number" id="bet-amount" value="10" min="1" max="10000">
+                    <button onclick="adjustBetAmount(1)">+</button>
+                    <button onclick="setBetAmount(10000)">Max</button>
+                </div>
+                
+                <div class="color-buttons">
+                    <button class="color-btn green" onclick="placeBet('green')">
+                        <span>हरा 2x</span>
+                        <span class="bet-count" id="bet-count-green">0</span>
+                    </button>
+                    <button class="color-btn blue" onclick="placeBet('blue')">
+                        <span>नीला 2x</span>
+                        <span class="bet-count" id="bet-count-blue">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Money Page -->
+    <div id="add-money-page" class="page">
+        <div class="container">
+            <h2>💰 पैसा जोड़ें</h2>
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=fundmoney%40upi" alt="UPI QR">
+            </div>
+            <p class="upi-id">UPI ID: fundmoney@upi</p>
+            
+            <div class="amount-options">
+                <button onclick="selectAmount(100)">₹100</button>
+                <button onclick="selectAmount(500)">₹500</button>
+                <button onclick="selectAmount(1000)">₹1000</button>
+                <button onclick="selectAmount(2000)">₹2000</button>
+                <button onclick="selectAmount(5000)">₹5000</button>
+                <button onclick="selectAmount(10000)">₹10000</button>
+            </div>
+            
+            <input type="number" id="custom-amount" placeholder="कस्टम राशि">
+            <input type="text" id="transaction-id" placeholder="UTR/Transaction ID">
+            <button onclick="submitAddMoney()">अनुरोध भेजें</button>
+            <button class="back-btn" onclick="showPage('dashboard-page')">वापस</button>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile-page" class="page">
+        <div class="container">
+            <h2>👤 प्रोफाइल</h2>
+            <div class="profile-info">
+                <p><strong>यूज़र आईडी:</strong> <span id="profile-user-id">-</span></p>
+                <p><strong>नाम:</strong> <span id="profile-name">-</span></p>
+                <p><strong>ईमेल:</strong> <span id="profile-email">-</span></p>
+                <p><strong>बैलेंस:</strong> ₹<span id="profile-balance">0</span></p>
+            </div>
+            
+            <div class="password-section">
+                <h3>🔒 पासवर्ड</h3>
+                <div class="password-display">
+                    <input type="password" id="display-password" value="••••••••" readonly>
+                    <button onclick="togglePasswordVisibility()">👁️</button>
+                </div>
+            </div>
+            
+            <div class="bank-section">
+                <h3>🏦 बैंक डिटेल्स</h3>
+                <input type="text" id="account-holder" placeholder="खाताधारक नाम">
+                <input type="text" id="account-number" placeholder="अकाउंट नंबर">
+                <input type="text" id="ifsc-code" placeholder="IFSC कोड">
+                <input type="text" id="bank-name" placeholder="बैंक नाम">
+                <button onclick="saveBankDetails()">सेव करें</button>
+            </div>
+            
+            <button class="back-btn" onclick="showPage('dashboard-page')">वापस</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
