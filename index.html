@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fund Money - Gaming App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,28 +11,11 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-green: #4CAF50;
-            --primary-blue: #2196F3;
-            --accent-purple: #3f51b5;
-            --warning-orange: #ff9800;
-            --error-red: #f44336;
-            --success-green: #4CAF50;
-            --bg-white: #ffffff;
-            --bg-light: #f0f2f5;
-            --bg-grey: #f5f5f5;
-            --text-dark: #333333;
-            --text-medium: #666666;
-            --text-light: #888888;
-            --text-white: #ffffff;
-        }
-
         body {
-            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: var(--text-dark);
-            line-height: 1.6;
+            color: #333;
         }
 
         .page {
@@ -48,7 +30,7 @@
         .container {
             max-width: 450px;
             margin: 0 auto;
-            background: var(--bg-white);
+            background: white;
             min-height: 100vh;
             position: relative;
         }
@@ -60,6 +42,7 @@
             justify-content: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            text-align: center;
         }
 
         .loader {
@@ -89,12 +72,12 @@
             text-align: center;
             font-size: 2.5em;
             margin-bottom: 10px;
-            color: var(--accent-purple);
+            color: #3f51b5;
         }
 
         .subtitle {
             text-align: center;
-            color: var(--text-medium);
+            color: #666;
             margin-bottom: 30px;
             font-size: 0.9em;
         }
@@ -110,16 +93,15 @@
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s;
         }
 
         .input-group input:focus {
-            border-color: var(--primary-blue);
+            border-color: #2196F3;
             outline: none;
         }
 
         .login-btn {
-            background: var(--primary-green);
+            background: #4CAF50;
             color: white;
             border: none;
             padding: 15px;
@@ -128,7 +110,6 @@
             font-weight: bold;
             cursor: pointer;
             margin: 10px 0;
-            transition: background 0.3s;
             width: 100%;
         }
 
@@ -149,7 +130,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: background 0.3s;
             width: 100%;
         }
 
@@ -172,7 +152,7 @@
         }
 
         .links a {
-            color: var(--primary-blue);
+            color: #2196F3;
             text-decoration: none;
             display: block;
             margin: 8px 0;
@@ -184,30 +164,29 @@
         }
 
         .back-btn {
-            background: var(--text-medium);
+            background: #666;
             color: white;
             border: none;
             padding: 12px;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 15px;
-            text-align: center;
             width: 100%;
         }
 
-        /* Simple Dashboard for Testing */
+        /* Dashboard */
         .dashboard-content {
             padding: 20px;
             text-align: center;
         }
 
         .dashboard-content h2 {
-            color: var(--accent-purple);
+            color: #3f51b5;
             margin-bottom: 20px;
         }
 
         .dashboard-content button {
-            background: var(--primary-blue);
+            background: #2196F3;
             color: white;
             border: none;
             padding: 12px 20px;
@@ -217,13 +196,32 @@
             font-size: 16px;
         }
 
-        /* Utility Classes */
-        .hidden {
-            display: none !important;
+        .user-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
         }
 
-        .text-center {
+        /* Admin Login */
+        #admin-login-page .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        #admin-login-page h1 {
             text-align: center;
+            color: #3f51b5;
+            margin-bottom: 10px;
+        }
+
+        #admin-login-page p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
         }
 
         @media (max-width: 480px) {
@@ -239,7 +237,7 @@
         <div class="container">
             <div class="loader"></div>
             <h2>Fund Money</h2>
-            <p id="loading-text">लोड हो रहा है...</p>
+            <p id="loading-text">App Starting...</p>
         </div>
     </div>
 
@@ -274,9 +272,9 @@
             <h1>📝 नया अकाउंट</h1>
             
             <div class="input-group">
-                <input type="text" id="signup-name" placeholder="पूरा नाम">
-                <input type="email" id="signup-email" placeholder="ईमेल एड्रेस">
-                <input type="password" id="signup-password" placeholder="पासवर्ड (कम से कम 6 अक्षर)">
+                <input type="text" id="signup-name" placeholder="पूरा नाम" value="Test User">
+                <input type="email" id="signup-email" placeholder="ईमेल एड्रेस" value="newuser@example.com">
+                <input type="password" id="signup-password" placeholder="पासवर्ड (कम से कम 6 अक्षर)" value="password123">
             </div>
             
             <button class="login-btn" onclick="signUpWithEmailPassword()">अकाउंट बनाएँ</button>
@@ -287,7 +285,7 @@
         </div>
     </div>
 
-    <!-- Simple Dashboard Page -->
+    <!-- Dashboard Page -->
     <div id="dashboard-page" class="page">
         <div class="container">
             <div class="dashboard-content">
@@ -311,7 +309,7 @@
             <p>Fund Money Admin Panel</p>
             
             <div class="input-group">
-                <input type="password" id="admin-password" placeholder="Enter Admin Password">
+                <input type="password" id="admin-password" placeholder="Enter Admin Password" value="Winner@#2008">
             </div>
             
             <button class="login-btn" onclick="loginToAdminPanel()">Admin Login</button>
@@ -323,36 +321,30 @@
     </div>
 
     <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyD8w1L_Nxe5UiPhpAe1rbyDo4KYb-pH0VU",
-            authDomain: "new-fund-money.firebaseapp.com",
-            projectId: "new-fund-money",
-            storageBucket: "new-fund-money.firebasestorage.app",
-            messagingSenderId: "912524669808",
-            appId: "1:912524669808:web:48f925b308a95832d495b5",
-            measurementId: "G-4JDE7VM0MC"
-        };
-
-        // Initialize Firebase (commented out for testing)
-        // firebase.initializeApp(firebaseConfig);
-        // const auth = firebase.auth();
-        // const db = firebase.firestore();
-
         // Global Variables
         let currentUser = null;
 
-        // Page Navigation
+        // Page Navigation Function
         function showPage(pageId) {
-            console.log('Showing page:', pageId);
+            console.log('Switching to page:', pageId);
+            
+            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            document.getElementById(pageId).classList.add('active');
+            
+            // Show the requested page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                console.log('Successfully showed page:', pageId);
+            } else {
+                console.error('Page not found:', pageId);
+            }
         }
 
-        // Authentication Functions (Simplified for Testing)
-        async function loginWithEmailPassword() {
+        // Authentication Functions
+        function loginWithEmailPassword() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
             
@@ -361,28 +353,24 @@
                 return;
             }
             
-            showLoading('लॉगिन हो रहा है...');
+            console.log('Login attempt with:', email);
             
-            // Simulate login process
-            setTimeout(() => {
-                // Mock user data
-                currentUser = {
-                    displayName: 'Test User',
-                    email: email,
-                    uid: 'test-user-123'
-                };
-                
-                // Update UI
-                document.getElementById('user-name').textContent = currentUser.displayName;
-                document.getElementById('user-email').textContent = currentUser.email;
-                
-                hideLoading();
-                showPage('dashboard-page');
-                alert('लॉगिन सफल! स्वागत है ' + currentUser.displayName);
-            }, 1500);
+            // Mock login process
+            currentUser = {
+                displayName: 'Test User',
+                email: email,
+                uid: 'test-user-123'
+            };
+            
+            // Update UI
+            document.getElementById('user-name').textContent = currentUser.displayName;
+            document.getElementById('user-email').textContent = currentUser.email;
+            
+            showPage('dashboard-page');
+            alert('लॉगिन सफल! स्वागत है ' + currentUser.displayName);
         }
 
-        async function signUpWithEmailPassword() {
+        function signUpWithEmailPassword() {
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
@@ -397,65 +385,50 @@
                 return;
             }
             
-            showLoading('अकाउंट बनाया जा रहा है...');
+            console.log('Signup attempt for:', name, email);
             
-            // Simulate signup process
-            setTimeout(() => {
-                // Mock user data
-                currentUser = {
-                    displayName: name,
-                    email: email,
-                    uid: 'new-user-' + Date.now()
-                };
-                
-                hideLoading();
-                showPage('dashboard-page');
-                alert('अकाउंट सफलतापूर्वक बना! स्वागत है ' + currentUser.displayName);
-            }, 1500);
+            // Mock signup process
+            currentUser = {
+                displayName: name,
+                email: email,
+                uid: 'new-user-' + Date.now()
+            };
+            
+            // Update UI
+            document.getElementById('user-name').textContent = currentUser.displayName;
+            document.getElementById('user-email').textContent = currentUser.email;
+            
+            showPage('dashboard-page');
+            alert('अकाउंट सफलतापूर्वक बना! स्वागत है ' + currentUser.displayName);
         }
 
         function signInWithGoogle() {
-            showLoading('Google लॉगिन हो रहा है...');
+            console.log('Google login attempt');
             
-            // Simulate Google login
-            setTimeout(() => {
-                // Mock user data
-                currentUser = {
-                    displayName: 'Google User',
-                    email: 'googleuser@example.com',
-                    uid: 'google-user-123'
-                };
-                
-                // Update UI
-                document.getElementById('user-name').textContent = currentUser.displayName;
-                document.getElementById('user-email').textContent = currentUser.email;
-                
-                hideLoading();
-                showPage('dashboard-page');
-                alert('Google लॉगिन सफल! स्वागत है ' + currentUser.displayName);
-            }, 1500);
+            // Mock Google login
+            currentUser = {
+                displayName: 'Google User',
+                email: 'googleuser@example.com',
+                uid: 'google-user-123'
+            };
+            
+            // Update UI
+            document.getElementById('user-name').textContent = currentUser.displayName;
+            document.getElementById('user-email').textContent = currentUser.email;
+            
+            showPage('dashboard-page');
+            alert('Google लॉगिन सफल! स्वागत है ' + currentUser.displayName);
         }
 
         function loginToAdminPanel() {
             const password = document.getElementById('admin-password').value;
             
             if (password === 'Winner@#2008') {
-                alert('Admin login successful! Redirecting to admin panel...');
+                alert('✅ Admin login successful!');
                 // In real app: window.location.href = 'admin.html';
             } else {
-                alert('❌ गलत पासवर्ड!');
+                alert('❌ गलत पासवर्ड! सही पासवर्ड है: Winner@#2008');
             }
-        }
-
-        // Utility Functions
-        function showLoading(message = 'लोड हो रहा है...') {
-            const loadingText = document.getElementById('loading-text');
-            loadingText.textContent = message;
-            showPage('loading-screen');
-        }
-
-        function hideLoading() {
-            // Loading screen will be hidden when we show another page
         }
 
         function logout() {
@@ -466,55 +439,49 @@
 
         // Initialize App
         function initializeApp() {
-            console.log('Initializing app...');
+            console.log('🚀 App initialization started...');
             
-            // Check if user is already logged in (simulated)
-            const isLoggedIn = false; // Change to true to test auto-login
-            
-            if (isLoggedIn) {
-                // Mock logged in user
-                currentUser = {
-                    displayName: 'Existing User',
-                    email: 'existing@example.com',
-                    uid: 'existing-user-123'
-                };
-                
-                document.getElementById('user-name').textContent = currentUser.displayName;
-                document.getElementById('user-email').textContent = currentUser.email;
-                showPage('dashboard-page');
-            } else {
-                // Show login page after short delay
-                setTimeout(() => {
-                    showPage('login-page');
-                }, 2000);
-            }
+            // Show loading for 2 seconds then show login page
+            setTimeout(() => {
+                console.log('🕒 Loading complete, showing login page...');
+                showPage('login-page');
+            }, 2000);
         }
 
         // Start the app when page loads
         window.addEventListener('load', function() {
-            console.log('Page loaded, starting app...');
+            console.log('📄 Page loaded successfully');
             initializeApp();
         });
 
-        // Prevent form submission
+        // Add keyboard support
         document.addEventListener('DOMContentLoaded', function() {
+            // Enter key support for forms
             document.querySelectorAll('input').forEach(input => {
                 input.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
                         
-                        // Auto-submit based on current page
-                        if (document.getElementById('login-page').classList.contains('active')) {
+                        const activePage = document.querySelector('.page.active').id;
+                        
+                        if (activePage === 'login-page') {
                             loginWithEmailPassword();
-                        } else if (document.getElementById('signup-page').classList.contains('active')) {
+                        } else if (activePage === 'signup-page') {
                             signUpWithEmailPassword();
-                        } else if (document.getElementById('admin-login-page').classList.contains('active')) {
+                        } else if (activePage === 'admin-login-page') {
                             loginToAdminPanel();
                         }
                     }
                 });
             });
+            
+            console.log('🎯 Event listeners attached successfully');
         });
+
+        // Debug: Log all page elements
+        console.log('📋 Available pages:', 
+            Array.from(document.querySelectorAll('.page')).map(p => p.id)
+        );
     </script>
 </body>
-        </html>
+</html>
