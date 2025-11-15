@@ -5,7 +5,233 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fund Money - Gaming App</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #4CAF50;
+            --primary-blue: #2196F3;
+            --accent-purple: #3f51b5;
+            --warning-orange: #ff9800;
+            --error-red: #f44336;
+            --success-green: #4CAF50;
+            --bg-white: #ffffff;
+            --bg-light: #f0f2f5;
+            --bg-grey: #f5f5f5;
+            --text-dark: #333333;
+            --text-medium: #666666;
+            --text-light: #888888;
+            --text-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Login Page */
+        #login-page .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        #login-page h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--accent-purple);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            margin: 8px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+
+        .login-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            background: #45a049;
+        }
+
+        .google-btn {
+            background: #4285F4;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .google-icon {
+            background: white;
+            color: #4285F4;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            background: var(--text-medium);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Simple Dashboard for Testing */
+        .dashboard-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard-content h2 {
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-content button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -24,8 +250,8 @@
             <div class="subtitle">रियल-टाइम गेमिंग ऐप</div>
             
             <div class="input-group">
-                <input type="email" id="login-email" placeholder="ईमेल एड्रेस">
-                <input type="password" id="login-password" placeholder="पासवर्ड">
+                <input type="email" id="login-email" placeholder="ईमेल एड्रेस" value="test@example.com">
+                <input type="password" id="login-password" placeholder="पासवर्ड" value="password123">
             </div>
             
             <button class="login-btn" onclick="loginWithEmailPassword()">लॉगिन करें</button>
@@ -36,7 +262,6 @@
             </div>
             
             <div class="links">
-                <a onclick="showPage('forgot-password-page')">पासवर्ड भूल गए?</a>
                 <a onclick="showPage('signup-page')">नया अकाउंट बनाएँ</a>
                 <a onclick="showPage('admin-login-page')">Admin Login</a>
             </div>
@@ -48,10 +273,13 @@
         <div class="container">
             <h1>📝 नया अकाउंट</h1>
             
-            <div class="google-btn" onclick="signInWithGoogle()">
-                <span class="google-icon">G</span>
-                Google के साथ साइनअप
+            <div class="input-group">
+                <input type="text" id="signup-name" placeholder="पूरा नाम">
+                <input type="email" id="signup-email" placeholder="ईमेल एड्रेस">
+                <input type="password" id="signup-password" placeholder="पासवर्ड (कम से कम 6 अक्षर)">
             </div>
+            
+            <button class="login-btn" onclick="signUpWithEmailPassword()">अकाउंट बनाएँ</button>
             
             <div class="back-btn" onclick="showPage('login-page')">
                 वापस लॉगिन पर
@@ -59,337 +287,19 @@
         </div>
     </div>
 
-    <!-- Password Setup Page -->
-    <div id="setup-password-page" class="page">
-        <div class="container">
-            <h1>🔐 पासवर्ड सेटअप</h1>
-            <p>कृपया अपना पासवर्ड सेट करें</p>
-            
-            <input type="password" id="setup-password" placeholder="नया पासवर्ड (6 अक्षर)">
-            <input type="password" id="setup-confirm-password" placeholder="पासवर्ड कन्फर्म करें">
-            <button onclick="setupPassword()">पासवर्ड सेव करें</button>
-            
-            <div class="back-btn" onclick="logout()">
-                वापस लॉगिन पर
-            </div>
-        </div>
-    </div>
-
-    <!-- Dashboard Page -->
+    <!-- Simple Dashboard Page -->
     <div id="dashboard-page" class="page">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <button class="icon-btn profile-btn" onclick="showPage('profile-page')">
-                <span class="icon">👤</span>
-            </button>
-            
-            <div class="balance-box">
-                <div class="balance-label">बैलेंस</div>
-                <div class="balance-amount">₹ <span id="current-balance">0</span></div>
-                <button class="add-money-btn" onclick="showPage('add-money-page')">+</button>
-            </div>
-            
-            <div class="top-bar-right">
-                <div class="notification-icon" onclick="toggleNotificationPanel()">
-                    <span class="icon">🔔</span>
-                    <span id="notification-badge" class="badge hidden">0</span>
-                </div>
-                <button class="logout-btn" onclick="logout()">लॉगआउट</button>
-            </div>
-        </div>
-
-        <!-- Game Area -->
-        <div class="game-area">
-            <!-- Timer Section -->
-            <div class="timer-section">
-                <div id="timer" class="timer">30.00s</div>
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar"></div>
-                </div>
-                <div id="game-status" class="game-status">बेटिंग चालू है</div>
-            </div>
-
-            <!-- Result Display -->
-            <div id="result-display" class="result-display">
-                <div id="last-result-text">पिछला रिजल्ट: -</div>
-                <div id="current-result" class="current-result">परिणाम का इंतज़ार...</div>
-            </div>
-
-            <!-- Bet Amount Controls -->
-            <div class="bet-amount-section">
-                <div class="section-title">बेट राशि</div>
-                <div class="amount-controls">
-                    <button class="amount-btn min-btn" onclick="setBetAmount(10)">Min ₹10</button>
-                    <button class="amount-btn decrement" onclick="adjustBetAmount(-10)">-10</button>
-                    <input type="number" id="bet-amount" class="bet-input" value="100" min="10" max="10000">
-                    <button class="amount-btn increment" onclick="adjustBetAmount(10)">+10</button>
-                    <button class="amount-btn max-btn" onclick="setBetAmount(10000)">Max ₹10k</button>
-                </div>
-            </div>
-
-            <!-- Color Selection -->
-            <div class="color-selection-section">
-                <div class="section-title">रंग चुनें (2x पेआउट)</div>
-                <div class="color-buttons">
-                    <button id="green-btn" class="color-btn green-btn" onclick="placeBet('green')">
-                        <div class="color-dot green-dot"></div>
-                        <div class="color-text">हरा</div>
-                        <div class="payout-text">2x</div>
-                        <div id="green-bet-amount" class="bet-amount-display">₹0</div>
-                    </button>
-                    
-                    <button id="blue-btn" class="color-btn blue-btn" onclick="placeBet('blue')">
-                        <div class="color-dot blue-dot"></div>
-                        <div class="color-text">नीला</div>
-                        <div class="payout-text">2x</div>
-                        <div id="blue-bet-amount" class="bet-amount-display">₹0</div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Game History -->
-            <div class="history-section">
-                <div class="section-title">आखिरी रिजल्ट</div>
-                <div id="game-history" class="history-items">
-                    <div class="history-item">-</div>
-                    <div class="history-item">-</div>
-                    <div class="history-item">-</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <button class="nav-btn active" onclick="showPage('dashboard-page')">
-                <span class="nav-icon">🎮</span>
-                <span class="nav-text">गेम</span>
-            </button>
-            <button class="nav-btn" onclick="showPage('withdraw-page')">
-                <span class="nav-icon">💸</span>
-                <span class="nav-text">निकासी</span>
-            </button>
-            <button class="nav-btn" onclick="showPage('history-page')">
-                <span class="nav-icon">📊</span>
-                <span class="nav-text">हिस्ट्री</span>
-            </button>
-            <button class="nav-btn" onclick="showPage('profile-page')">
-                <span class="nav-icon">👤</span>
-                <span class="nav-text">प्रोफाइल</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Add Money Page -->
-    <div id="add-money-page" class="page">
         <div class="container">
-            <div class="page-header">
-                <button class="back-button" onclick="showPage('dashboard-page')">←</button>
-                <h2>💰 पैसा जोड़ें</h2>
-            </div>
-
-            <div class="qr-section">
-                <div class="qr-container">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=fundmoney.game%40oksbi" 
-                         alt="UPI QR Code" class="qr-code">
+            <div class="dashboard-content">
+                <h2>🎉 स्वागत है! लॉगिन सफल</h2>
+                <p>आप सफलतापूर्वक लॉगिन हो गए हैं।</p>
+                <div class="user-info">
+                    <p><strong>यूज़र:</strong> <span id="user-name">-</span></p>
+                    <p><strong>ईमेल:</strong> <span id="user-email">-</span></p>
+                    <p><strong>बैलेंस:</strong> ₹<span id="user-balance">1000</span></p>
                 </div>
-                <div class="upi-details">
-                    <div class="upi-id">UPI ID: <span>fundmoney.game@oksbi</span></div>
-                    <div class="note">QR स्कैन करें या UPI ID यूज़ करें</div>
-                </div>
-            </div>
-
-            <div class="amount-section">
-                <div class="section-title">राशि चुनें</div>
-                <div class="amount-buttons">
-                    <button class="amount-option" onclick="selectAddAmount(100)">₹100</button>
-                    <button class="amount-option" onclick="selectAddAmount(500)">₹500</button>
-                    <button class="amount-option" onclick="selectAddAmount(1000)">₹1000</button>
-                    <button class="amount-option" onclick="selectAddAmount(2000)">₹2000</button>
-                    <button class="amount-option" onclick="selectAddAmount(5000)">₹5000</button>
-                    <button class="amount-option" onclick="selectAddAmount(10000)">₹10000</button>
-                </div>
-                
-                <div class="custom-amount">
-                    <input type="number" id="custom-add-amount" placeholder="या कस्टम राशि दर्ज करें" 
-                           min="100" max="100000">
-                </div>
-            </div>
-
-            <div class="transaction-section">
-                <div class="input-group">
-                    <label for="transaction-id">UTR/Transaction ID</label>
-                    <input type="text" id="transaction-id" 
-                           placeholder="12 अंकों का UTR नंबर दर्ज करें">
-                </div>
-            </div>
-
-            <button class="submit-btn" onclick="submitAddMoneyRequest()">अनुरोध भेजें</button>
-            
-            <div class="info-box">
-                <div class="info-title">⚠️ ध्यान दें</div>
-                <div class="info-content">
-                    • पेमेंट के बाद UTR ID जरूर सेव करें<br>
-                    • पैसा 5-10 मिनट में अकाउंट में आ जाएगा<br>
-                    • कोई समस्या हो तो support@fundmoney.game पर संपर्क करें
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Withdraw Page -->
-    <div id="withdraw-page" class="page">
-        <div class="container">
-            <div class="page-header">
-                <button class="back-button" onclick="showPage('dashboard-page')">←</button>
-                <h2>💸 पैसा निकालें</h2>
-            </div>
-
-            <div class="balance-info">
-                <div class="available-balance">उपलब्ध बैलेंस: ₹<span id="withdraw-balance">0</span></div>
-                <div class="min-withdraw">न्यूनतम निकासी: ₹100</div>
-            </div>
-
-            <div class="amount-section">
-                <div class="section-title">निकासी राशि</div>
-                <div class="amount-buttons">
-                    <button class="amount-option" onclick="selectWithdrawAmount(100)">₹100</button>
-                    <button class="amount-option" onclick="selectWithdrawAmount(500)">₹500</button>
-                    <button class="amount-option" onclick="selectWithdrawAmount(1000)">₹1000</button>
-                    <button class="amount-option" onclick="selectWithdrawAmount(2000)">₹2000</button>
-                    <button class="amount-option" onclick="selectWithdrawAmount(5000)">₹5000</button>
-                </div>
-                
-                <div class="custom-amount">
-                    <input type="number" id="custom-withdraw-amount" 
-                           placeholder="या कस्टम राशि दर्ज करें" min="100" max="50000">
-                </div>
-            </div>
-
-            <div class="bank-info">
-                <div class="section-title">बैंक डिटेल्स</div>
-                <div id="bank-details-display" class="bank-details-display">
-                    <div class="no-bank-message">
-                        बैंक डिटेल्स नहीं मिले। कृपया प्रोफाइल में जाकर डिटेल्स भरें।
-                    </div>
-                </div>
-                <button class="edit-bank-btn" onclick="showPage('profile-page')">
-                    बैंक डिटेल्स एडिट करें
-                </button>
-            </div>
-
-            <button class="submit-btn" onclick="submitWithdrawRequest()">निकासी अनुरोध भेजें</button>
-            
-            <div class="info-box">
-                <div class="info-title">ℹ️ जानकारी</div>
-                <div class="info-content">
-                    • निकासी 2-4 घंटे में प्रोसेस होगी<br>
-                    • कोई चार्ज नहीं लगेगा<br>
-                    • केवल verified बैंक अकाउंट में ही पैसा जाएगा
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Profile Page -->
-    <div id="profile-page" class="page">
-        <div class="container">
-            <div class="page-header">
-                <button class="back-button" onclick="showPage('dashboard-page')">←</button>
-                <h2>👤 मेरी प्रोफाइल</h2>
-            </div>
-
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="avatar">👤</div>
-                    <div class="profile-info">
-                        <div class="profile-name" id="profile-name">लोड हो रहा है...</div>
-                        <div class="profile-email" id="profile-email">-</div>
-                    </div>
-                </div>
-                
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">यूज़र आईडी</div>
-                        <div class="stat-value" id="profile-user-id">-</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">बैलेंस</div>
-                        <div class="stat-value">₹<span id="profile-balance">0</span></div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">स्टेटस</div>
-                        <div class="stat-value" id="profile-status">-</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Password Section -->
-            <div class="section-card">
-                <h3>🔒 पासवर्ड मैनेजमेंट</h3>
-                
-                <div class="password-display">
-                    <input type="password" id="display-password" value="••••••••" readonly>
-                    <button class="toggle-password" onclick="togglePasswordVisibility()">
-                        <span class="eye-icon">👁️</span>
-                    </button>
-                </div>
-                
-                <div class="password-change">
-                    <input type="password" id="new-password" placeholder="नया पासवर्ड">
-                    <input type="password" id="confirm-password" placeholder="पासवर्ड कन्फर्म करें">
-                    <button class="change-password-btn" onclick="changePassword()">
-                        पासवर्ड बदलें
-                    </button>
-                </div>
-            </div>
-
-            <!-- Bank Details Section -->
-            <div class="section-card">
-                <h3>🏦 बैंक डिटेल्स</h3>
-                
-                <div class="bank-form">
-                    <div class="input-group">
-                        <label>खाताधारक का नाम</label>
-                        <input type="text" id="account-holder" placeholder="जैसे: राहुल शर्मा">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>बैंक अकाउंट नंबर</label>
-                        <input type="text" id="account-number" placeholder="12-16 अंकों का नंबर">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>IFSC कोड</label>
-                        <input type="text" id="ifsc-code" placeholder="जैसे: SBIN0000123">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>बैंक का नाम</label>
-                        <input type="text" id="bank-name" placeholder="जैसे: State Bank of India">
-                    </div>
-                    
-                    <button class="save-bank-btn" onclick="saveBankDetails()">
-                        बैंक डिटेल्स सेव करें
-                    </button>
-                </div>
-            </div>
-
-            <!-- App Info -->
-            <div class="section-card">
-                <h3>ℹ️ ऐप जानकारी</h3>
-                <div class="app-info">
-                    <div class="info-item">
-                        <span>वर्जन:</span>
-                        <span>1.0.0</span>
-                    </div>
-                    <div class="info-item">
-                        <span>लॉगिन समय:</span>
-                        <span id="login-time">-</span>
-                    </div>
-                    <button class="support-btn" onclick="contactSupport()">
-                        सपोर्ट से संपर्क करें
-                    </button>
-                </div>
+                <button onclick="logout()">लॉगआउट करें</button>
+                <button onclick="showPage('login-page')">वापस लॉगिन पर</button>
             </div>
         </div>
     </div>
@@ -400,8 +310,11 @@
             <h1>🔐 Admin Login</h1>
             <p>Fund Money Admin Panel</p>
             
-            <input type="password" id="admin-password" placeholder="Enter Admin Password">
-            <button onclick="loginToAdminPanel()">Admin Login</button>
+            <div class="input-group">
+                <input type="password" id="admin-password" placeholder="Enter Admin Password">
+            </div>
+            
+            <button class="login-btn" onclick="loginToAdminPanel()">Admin Login</button>
             
             <div class="back-btn" onclick="showPage('login-page')">
                 Back to User App
@@ -409,10 +322,199 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD8w1L_Nxe5UiPhpAe1rbyDo4KYb-pH0VU",
+            authDomain: "new-fund-money.firebaseapp.com",
+            projectId: "new-fund-money",
+            storageBucket: "new-fund-money.firebasestorage.app",
+            messagingSenderId: "912524669808",
+            appId: "1:912524669808:web:48f925b308a95832d495b5",
+            measurementId: "G-4JDE7VM0MC"
+        };
+
+        // Initialize Firebase (commented out for testing)
+        // firebase.initializeApp(firebaseConfig);
+        // const auth = firebase.auth();
+        // const db = firebase.firestore();
+
+        // Global Variables
+        let currentUser = null;
+
+        // Page Navigation
+        function showPage(pageId) {
+            console.log('Showing page:', pageId);
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Authentication Functions (Simplified for Testing)
+        async function loginWithEmailPassword() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                alert('कृपया ईमेल और पासवर्ड दर्ज करें');
+                return;
+            }
+            
+            showLoading('लॉगिन हो रहा है...');
+            
+            // Simulate login process
+            setTimeout(() => {
+                // Mock user data
+                currentUser = {
+                    displayName: 'Test User',
+                    email: email,
+                    uid: 'test-user-123'
+                };
+                
+                // Update UI
+                document.getElementById('user-name').textContent = currentUser.displayName;
+                document.getElementById('user-email').textContent = currentUser.email;
+                
+                hideLoading();
+                showPage('dashboard-page');
+                alert('लॉगिन सफल! स्वागत है ' + currentUser.displayName);
+            }, 1500);
+        }
+
+        async function signUpWithEmailPassword() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            if (!name || !email || !password) {
+                alert('कृपया सभी जानकारी भरें');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('पासवर्ड कम से कम 6 अक्षर का होना चाहिए');
+                return;
+            }
+            
+            showLoading('अकाउंट बनाया जा रहा है...');
+            
+            // Simulate signup process
+            setTimeout(() => {
+                // Mock user data
+                currentUser = {
+                    displayName: name,
+                    email: email,
+                    uid: 'new-user-' + Date.now()
+                };
+                
+                hideLoading();
+                showPage('dashboard-page');
+                alert('अकाउंट सफलतापूर्वक बना! स्वागत है ' + currentUser.displayName);
+            }, 1500);
+        }
+
+        function signInWithGoogle() {
+            showLoading('Google लॉगिन हो रहा है...');
+            
+            // Simulate Google login
+            setTimeout(() => {
+                // Mock user data
+                currentUser = {
+                    displayName: 'Google User',
+                    email: 'googleuser@example.com',
+                    uid: 'google-user-123'
+                };
+                
+                // Update UI
+                document.getElementById('user-name').textContent = currentUser.displayName;
+                document.getElementById('user-email').textContent = currentUser.email;
+                
+                hideLoading();
+                showPage('dashboard-page');
+                alert('Google लॉगिन सफल! स्वागत है ' + currentUser.displayName);
+            }, 1500);
+        }
+
+        function loginToAdminPanel() {
+            const password = document.getElementById('admin-password').value;
+            
+            if (password === 'Winner@#2008') {
+                alert('Admin login successful! Redirecting to admin panel...');
+                // In real app: window.location.href = 'admin.html';
+            } else {
+                alert('❌ गलत पासवर्ड!');
+            }
+        }
+
+        // Utility Functions
+        function showLoading(message = 'लोड हो रहा है...') {
+            const loadingText = document.getElementById('loading-text');
+            loadingText.textContent = message;
+            showPage('loading-screen');
+        }
+
+        function hideLoading() {
+            // Loading screen will be hidden when we show another page
+        }
+
+        function logout() {
+            currentUser = null;
+            showPage('login-page');
+            alert('लॉगआउट सफल!');
+        }
+
+        // Initialize App
+        function initializeApp() {
+            console.log('Initializing app...');
+            
+            // Check if user is already logged in (simulated)
+            const isLoggedIn = false; // Change to true to test auto-login
+            
+            if (isLoggedIn) {
+                // Mock logged in user
+                currentUser = {
+                    displayName: 'Existing User',
+                    email: 'existing@example.com',
+                    uid: 'existing-user-123'
+                };
+                
+                document.getElementById('user-name').textContent = currentUser.displayName;
+                document.getElementById('user-email').textContent = currentUser.email;
+                showPage('dashboard-page');
+            } else {
+                // Show login page after short delay
+                setTimeout(() => {
+                    showPage('login-page');
+                }, 2000);
+            }
+        }
+
+        // Start the app when page loads
+        window.addEventListener('load', function() {
+            console.log('Page loaded, starting app...');
+            initializeApp();
+        });
+
+        // Prevent form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        
+                        // Auto-submit based on current page
+                        if (document.getElementById('login-page').classList.contains('active')) {
+                            loginWithEmailPassword();
+                        } else if (document.getElementById('signup-page').classList.contains('active')) {
+                            signUpWithEmailPassword();
+                        } else if (document.getElementById('admin-login-page').classList.contains('active')) {
+                            loginToAdminPanel();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-                        </html>
+        </html>
